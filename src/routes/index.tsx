@@ -79,13 +79,42 @@ function ImageGallery() {
   };
 
   const handleShare = async (imageUrl: string) => {
-    const shareUrl = `${window.location.origin}/images/${encodeURIComponent(imageUrl)}`;
+    const shareUrl = `${window.location.origin}/?image=${encodeURIComponent(imageUrl)}`;
     try {
       await navigator.clipboard.writeText(shareUrl);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch (error) {
       console.error("Failed to copy:", error);
+    }
+  };
+
+  const handleDelete = async (imageUrl: string) => {
+    try {
+      const filename = imageUrl.split("/").pop();
+      if (!filename) {
+        console.error("Could not extract filename from URL");
+        return;
+      }
+
+      const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:3000";
+      const response = await fetch(`${apiUrl}/images/${filename}`, {
+        method: "DELETE",
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to delete image");
+      }
+
+      // Close modal if the deleted image is currently being viewed
+      if (selectedImage === imageUrl) {
+        closeModal();
+      }
+
+      // Refresh images list
+      await fetchImages();
+    } catch (error) {
+      console.error("Error deleting image:", error);
     }
   };
 
@@ -196,6 +225,28 @@ function ImageGallery() {
                         </svg>
                         Download
                       </button>
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleDelete(image.url);
+                        }}
+                        className="bg-red-500 hover:bg-red-600 text-white px-3 py-2 rounded-lg font-semibold shadow-lg transition-all duration-200 hover:scale-105 flex items-center justify-center gap-2"
+                        title="Delete"
+                      >
+                        <svg
+                          className="w-5 h-5"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                          />
+                        </svg>
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -299,6 +350,27 @@ function ImageGallery() {
                   />
                 </svg>
                 Download
+              </button>
+
+              {/* Delete button */}
+              <button
+                onClick={() => handleDelete(selectedImage)}
+                className="bg-red-500 hover:bg-red-600 text-white px-6 py-3 rounded-lg font-semibold shadow-lg transition-all duration-200 hover:scale-105 flex items-center gap-2"
+              >
+                <svg
+                  className="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                  />
+                </svg>
+                Delete
               </button>
             </div>
           </div>
