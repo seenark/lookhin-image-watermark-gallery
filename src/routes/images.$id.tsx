@@ -1,4 +1,4 @@
-import { createFileRoute, useRouter } from '@tanstack/react-router'
+import { createFileRoute, useNavigate } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/images/$id')({
   component: ImageModal,
@@ -6,11 +6,13 @@ export const Route = createFileRoute('/images/$id')({
 
 function ImageModal() {
   const { id } = Route.useParams()
-  const router = useRouter()
+  const navigate = useNavigate()
 
   // Redirect to home with modal open
-  router.history.replace({
+  navigate({
+    to: '/',
     search: { image: id },
+    replace: true,
   })
 
   return null

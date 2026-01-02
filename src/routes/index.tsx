@@ -3,6 +3,11 @@ import { useState, useEffect } from "react";
 
 export const Route = createFileRoute("/")({
   component: ImageGallery,
+  validateSearch: (search: Record<string, unknown>) => {
+    return {
+      image: typeof search.image === "string" ? search.image : undefined,
+    };
+  },
 });
 
 interface ImageData {
@@ -19,7 +24,7 @@ function ImageGallery() {
 
   const navigate = useNavigate();
   const search = useSearch({ from: "/" });
-  const selectedImage = search.image as string | null;
+  const selectedImage = search.image;
 
   useEffect(() => {
     fetchImages();
@@ -81,11 +86,11 @@ function ImageGallery() {
   };
 
   const openModal = (imageUrl: string) => {
-    navigate({ search: { image: imageUrl } });
+    navigate({ to: "/", search: { image: imageUrl } });
   };
 
   const closeModal = () => {
-    navigate({ search: {} });
+    navigate({ to: "/", search: { image: undefined } });
   };
 
   const visibleImages = images.slice(0, displayCount);

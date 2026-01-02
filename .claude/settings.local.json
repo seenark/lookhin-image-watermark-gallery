@@ -1,7 +1,10 @@
 {
   "permissions": {
     "allow": [
-      "Bash(bun run dev)"
+      "Bash(bun run dev)",
+      "Bash(npm run build)",
+      "Bash(bun --bun run build:*)",
+      "Bash(bun --bun pm:*)"
     ]
   }
 }
