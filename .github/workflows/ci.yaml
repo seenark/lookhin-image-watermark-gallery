@@ -30,6 +30,6 @@ jobs:
         with:
           context: .
           push: true
-          args:
+          build-args:
             API_URL: ${{ env.API_URL }}
           tags: ${{ env.USERNAME }}/lookhin-image-watermark-gallery:latest
