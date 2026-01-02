@@ -1,8 +1,10 @@
+ARG API_URL
 FROM oven/bun AS build
 WORKDIR /app
 COPY ./package.json bun.lock ./
 RUN bun i
 COPY . .
+ENV API_URL=${API_URL}
 RUN bun run build
 
 FROM joseluisq/static-web-server:2
