@@ -1,4 +1,8 @@
-import { createFileRoute, useNavigate, useSearch } from "@tanstack/react-router";
+import {
+  createFileRoute,
+  useNavigate,
+  useSearch,
+} from "@tanstack/react-router";
 import { useState, useEffect } from "react";
 
 export const Route = createFileRoute("/")({
@@ -33,7 +37,7 @@ function ImageGallery() {
   const fetchImages = async () => {
     try {
       const response = await fetch(
-        import.meta.env.API_URL || "http://localhost:3000/images",
+        import.meta.env.VITE_API_URL || "http://localhost:3000/images",
       );
       if (!response.ok) {
         throw new Error("Failed to fetch images");
