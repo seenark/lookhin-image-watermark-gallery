@@ -163,91 +163,84 @@ function ImageGallery() {
               {visibleImages.map((image) => (
                 <div
                   key={image.id}
-                  className="group relative rounded-xl overflow-hidden shadow-2xl cursor-pointer transform transition-all duration-300 hover:scale-105 hover:shadow-orange-500/25"
+                  className="bg-white/10 backdrop-blur-sm rounded-xl overflow-hidden shadow-2xl transform transition-all duration-300 hover:scale-105 hover:shadow-orange-500/25"
                 >
-                  <img
-                    src={image.url}
-                    alt="Gallery image"
-                    className="w-full h-auto transition-transform duration-300 group-hover:scale-110"
-                    loading="lazy"
+                  <div
+                    className="cursor-pointer overflow-hidden"
                     onClick={() => openModal(image.url)}
-                  />
-                  {/* Overlay with buttons always visible */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-100 pointer-events-none transition-opacity duration-300">
-                    <div className="absolute bottom-0 left-0 right-0 p-4 flex gap-2 pointer-events-auto">
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          openModal(image.url);
-                        }}
-                        className="flex-1 bg-white/90 hover:bg-white text-gray-900 px-4 py-2 rounded-lg font-semibold shadow-lg transition-all duration-200 hover:scale-105 flex items-center justify-center gap-2"
+                  >
+                    <img
+                      src={image.url}
+                      alt="Gallery image"
+                      className="w-full h-auto transition-transform duration-300 hover:scale-110"
+                      loading="lazy"
+                    />
+                  </div>
+                  {/* Buttons below image */}
+                  <div className="p-3 flex gap-2">
+                    <button
+                      onClick={() => openModal(image.url)}
+                      className="flex-1 bg-white/90 hover:bg-white text-gray-900 px-3 py-2 rounded-lg font-semibold shadow-lg transition-all duration-200 hover:scale-105 flex items-center justify-center gap-1 text-sm"
+                    >
+                      <svg
+                        className="w-4 h-4"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
                       >
-                        <svg
-                          className="w-5 h-5"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                          />
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-                          />
-                        </svg>
-                        View
-                      </button>
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleDownload(image.url);
-                        }}
-                        className="flex-1 bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg font-semibold shadow-lg transition-all duration-200 hover:scale-105 flex items-center justify-center gap-2"
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                        />
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                        />
+                      </svg>
+                      View
+                    </button>
+                    <button
+                      onClick={() => handleDownload(image.url)}
+                      className="flex-1 bg-orange-500 hover:bg-orange-600 text-white px-3 py-2 rounded-lg font-semibold shadow-lg transition-all duration-200 hover:scale-105 flex items-center justify-center gap-1 text-sm"
+                    >
+                      <svg
+                        className="w-4 h-4"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
                       >
-                        <svg
-                          className="w-5 h-5"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
-                          />
-                        </svg>
-                        Download
-                      </button>
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleDelete(image.url);
-                        }}
-                        className="bg-red-500 hover:bg-red-600 text-white px-3 py-2 rounded-lg font-semibold shadow-lg transition-all duration-200 hover:scale-105 flex items-center justify-center gap-2"
-                        title="Delete"
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+                        />
+                      </svg>
+                      Download
+                    </button>
+                    <button
+                      onClick={() => handleDelete(image.url)}
+                      className="bg-red-500 hover:bg-red-600 text-white px-3 py-2 rounded-lg font-semibold shadow-lg transition-all duration-200 hover:scale-105 flex items-center justify-center"
+                      title="Delete"
+                    >
+                      <svg
+                        className="w-4 h-4"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
                       >
-                        <svg
-                          className="w-5 h-5"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                          />
-                        </svg>
-                      </button>
-                    </div>
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                        />
+                      </svg>
+                    </button>
                   </div>
                 </div>
               ))}
@@ -285,35 +278,49 @@ function ImageGallery() {
       {/* Lightbox Modal */}
       {selectedImage && (
         <div
-          className="fixed inset-0 z-50 bg-black/90 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in duration-200"
+          className="fixed inset-0 z-50 bg-black/90 backdrop-blur-sm flex flex-col animate-in fade-in duration-200"
           onClick={closeModal}
         >
           <div
-            className="relative max-w-5xl max-h-[90vh] w-full"
+            className="flex-1 flex items-center justify-center p-4 relative"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Close button */}
             <button
               onClick={closeModal}
-              className="absolute -top-12 right-0 text-white hover:text-orange-400 transition-colors duration-200 text-4xl font-light"
+              className="absolute top-4 right-4 z-10 bg-black/50 hover:bg-black/70 text-white rounded-full w-10 h-10 flex items-center justify-center transition-colors duration-200"
               aria-label="Close"
             >
-              ×
+              <svg
+                className="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
             </button>
 
             {/* Image */}
             <img
               src={selectedImage}
               alt="Full size"
-              className="w-full h-auto max-h-[85vh] object-contain rounded-lg shadow-2xl"
+              className="max-w-full max-h-[calc(100vh-140px)] object-contain rounded-lg shadow-2xl"
             />
+          </div>
 
-            {/* Action buttons */}
-            <div className="absolute bottom-4 right-4 flex gap-2">
+          {/* Action buttons - fixed at bottom */}
+          <div className="flex-shrink-0 bg-black/90 backdrop-blur-sm border-t border-white/10 p-4">
+            <div className="max-w-5xl mx-auto flex flex-col sm:flex-row gap-2 sm:gap-3 justify-center">
               {/* Share button */}
               <button
                 onClick={() => handleShare(selectedImage)}
-                className="bg-gray-700 hover:bg-gray-600 text-white px-6 py-3 rounded-lg font-semibold shadow-lg transition-all duration-200 hover:scale-105 flex items-center gap-2"
+                className="bg-gray-700 hover:bg-gray-600 text-white px-6 py-3 rounded-lg font-semibold shadow-lg transition-all duration-200 hover:scale-105 flex items-center justify-center gap-2 w-full sm:w-auto"
               >
                 <svg
                   className="w-5 h-5"
@@ -334,7 +341,7 @@ function ImageGallery() {
               {/* Download button */}
               <button
                 onClick={() => handleDownload(selectedImage)}
-                className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-lg font-semibold shadow-lg transition-all duration-200 hover:scale-105 flex items-center gap-2"
+                className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-lg font-semibold shadow-lg transition-all duration-200 hover:scale-105 flex items-center justify-center gap-2 w-full sm:w-auto"
               >
                 <svg
                   className="w-5 h-5"
@@ -355,7 +362,7 @@ function ImageGallery() {
               {/* Delete button */}
               <button
                 onClick={() => handleDelete(selectedImage)}
-                className="bg-red-500 hover:bg-red-600 text-white px-6 py-3 rounded-lg font-semibold shadow-lg transition-all duration-200 hover:scale-105 flex items-center gap-2"
+                className="bg-red-500 hover:bg-red-600 text-white px-6 py-3 rounded-lg font-semibold shadow-lg transition-all duration-200 hover:scale-105 flex items-center justify-center gap-2 w-full sm:w-auto"
               >
                 <svg
                   className="w-5 h-5"
