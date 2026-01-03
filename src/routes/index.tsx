@@ -35,10 +35,9 @@ function ImageGallery() {
   }, []);
 
   const fetchImages = async () => {
+    const url = `${import.meta.env.VITE_API_URL || "http://localhost:3000"}/images`;
     try {
-      const response = await fetch(
-        import.meta.env.VITE_API_URL || "http://localhost:3000/images",
-      );
+      const response = await fetch(url);
       if (!response.ok) {
         throw new Error("Failed to fetch images");
       }
@@ -97,7 +96,7 @@ function ImageGallery() {
         return;
       }
 
-      const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:3000/images";
+      const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:3000";
       const response = await fetch(`${apiUrl}/${filename}`, {
         method: "DELETE",
       });
