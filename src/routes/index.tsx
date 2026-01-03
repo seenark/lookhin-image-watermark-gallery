@@ -97,8 +97,8 @@ function ImageGallery() {
         return;
       }
 
-      const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:3000";
-      const response = await fetch(`${apiUrl}/images/${filename}`, {
+      const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:3000/images";
+      const response = await fetch(`${apiUrl}/${filename}`, {
         method: "DELETE",
       });
 
